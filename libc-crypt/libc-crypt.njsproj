@@ -13,8 +13,7 @@
     <ProjectGuid>a14d6cd2-f07b-4e23-abbc-6980ad2c51f5</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>app.js</StartupFile>
     <StartWebBrowser>False</StartWebBrowser>
     <SearchPath>
     </SearchPath>
@@ -32,10 +31,13 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="app.js" />
     <Compile Include="lib\crypt.js" />
     <Compile Include="lib\md5-crypt.js" />
     <Compile Include="lib\unix-crypt.js" />
     <Compile Include="lib\crypt-util.js" />
+    <Compile Include="tests\test-crypt-util.js" />
+    <Compile Include="tests\test-crypt.js" />
     <Compile Include="tests\test-md5-crypt.js" />
     <Compile Include="tests\test-unix-crypt.js" />
     <Content Include="package.json" />
@@ -43,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />
+    <Folder Include="node_modules\" />
     <Folder Include="tests\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />

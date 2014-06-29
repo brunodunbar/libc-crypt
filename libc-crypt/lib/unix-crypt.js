@@ -287,59 +287,61 @@ function body(schedule, eSwap0, eSwap1) {
     return out;
 }
 
-module.exports = {
-    crypt : function(original, salt) {
-        if (!(original instanceof Buffer)) {
-            original = new Buffer(original);
-        }
-
-        if (!salt) {
-            salt = CryptUtil.createRandomSalt(2);
-        } else if (CryptUtil.isValidSalt(salt)) {
-            throw new Error("Invalid salt value: " + salt);
-        }
-
-        var buffer = new Buffer(13);
-        var charZero = salt[0].charCodeAt();
-        var charOne = salt[1].charCodeAt();
-        buffer[0] = charZero;
-        buffer[1] = charOne;
-        var eSwap0 = CON_SALT[charZero];
-        var eSwap1 = CON_SALT[charOne] << 4;
-
-        var key = new Buffer(8);
-        for (var i = 0; i < key.length && i < original.length; i++) {
-            var iChar = original[i];
-            key[i] = iChar << 1;
-        }
-
-        var schedule = desSetKey(key);
-        var out = body(schedule, eSwap0, eSwap1);
-        var b = new Buffer(9);
-        intToFourBytes(out[0], b, 0);
-        intToFourBytes(out[1], b, 4);
-
-        b[8] = 0;
-        var i = 2;
-        var y = 0;
-        var u = 128;
-        for (; i < 13; i++) {
-            var j = 0;
-            var c = 0;
-            for (; j < 6; j++) {
-                c <<= 1;
-                if ((b[y] & u) != 0) {
-                    c |= 0x1;
-                }
-                u >>>= 1;
-                if (u == 0) {
-                    y++;
-                    u = 128;
-                }
-                buffer[i] = COV2CHAR[c];
-            }
-        }
-
-        return buffer.toString('ascii');
+function crypt(original, salt) {
+    if (!(original instanceof Buffer)) {
+        original = new Buffer(original);
     }
+
+    if (!salt) {
+        salt = CryptUtil.createRandomSalt(2);
+    } else if (!CryptUtil.isValidUnixSalt(salt)) {
+        throw new Error("Invalid salt value: " + salt);
+    }
+
+    var buffer = new Buffer(13);
+    var charZero = salt[0].charCodeAt();
+    var charOne = salt[1].charCodeAt();
+    buffer[0] = charZero;
+    buffer[1] = charOne;
+    var eSwap0 = CON_SALT[charZero];
+    var eSwap1 = CON_SALT[charOne] << 4;
+
+    var key = new Buffer(8);
+    for (var i = 0; i < key.length && i < original.length; i++) {
+        var iChar = original[i];
+        key[i] = iChar << 1;
+    }
+
+    var schedule = desSetKey(key);
+    var out = body(schedule, eSwap0, eSwap1);
+    var b = new Buffer(9);
+    intToFourBytes(out[0], b, 0);
+    intToFourBytes(out[1], b, 4);
+
+    b[8] = 0;
+    var i = 2;
+    var y = 0;
+    var u = 128;
+    for (; i < 13; i++) {
+        var j = 0;
+        var c = 0;
+        for (; j < 6; j++) {
+            c <<= 1;
+            if ((b[y] & u) != 0) {
+                c |= 0x1;
+            }
+            u >>>= 1;
+            if (u == 0) {
+                y++;
+                u = 128;
+            }
+            buffer[i] = COV2CHAR[c];
+        }
+    }
+
+    return buffer.toString('ascii');
+}
+
+module.exports = {
+    crypt : crypt
 }
