@@ -1,0 +1,5 @@
+﻿tests/
+obj/
+libc-crypt.njsproj
+
+.npmignore
