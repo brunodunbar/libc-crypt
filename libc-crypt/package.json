@@ -1,0 +1,16 @@
+{
+  "name": "unix-crypt",
+  "version": "0.0.1",
+  "description": "unix-crypt",
+  "main": "./lib/unix-crypt.js",
+  "author": {
+    "name": "Bruno Dunbar",
+    "email": "brunodunbar@gmail.com"
+  },
+  "devDependencies": {
+    "nodeunit": "0.9.0"
+  },
+  "scripts": {
+    "test": "node ./node_modules/nodeunit/bin/nodeunit tests"
+  }
+}
