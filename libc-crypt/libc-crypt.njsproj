@@ -13,7 +13,8 @@
     <ProjectGuid>a14d6cd2-f07b-4e23-abbc-6980ad2c51f5</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>app.js</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <StartWebBrowser>False</StartWebBrowser>
     <SearchPath>
     </SearchPath>
@@ -31,7 +32,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="app.js" />
     <Compile Include="lib\crypt.js" />
     <Compile Include="lib\md5-crypt.js" />
     <Compile Include="lib\unix-crypt.js" />
