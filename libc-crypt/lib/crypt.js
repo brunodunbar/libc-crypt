@@ -3,6 +3,11 @@ var Md5Crypt = require('./md5-crypt');
 var UnixCrypt = require('./unix-crypt');
 
 function crypt(key, salt) {
+
+    if (!salt) {
+        throw new Error('sha2 crypt not implemented yet');
+    }
+
     //if (salt == null) {
     //    return Sha2Crypt.sha512Crypt(keyBytes);
     //} else if (salt.startsWith(Sha2Crypt.SHA512_PREFIX)) {

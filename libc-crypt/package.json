@@ -1,6 +1,6 @@
 {
     "name": "libc-crypt",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "keywords": [ "libc", "crypt", "crypt(3)" ],
     "description": "A JavaScript implementation of the Unix libc crypt",
     "main": "./lib/crypt.js",
